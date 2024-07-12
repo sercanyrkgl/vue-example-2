@@ -1,11 +1,53 @@
 <script>
+import { computed } from 'vue'
 export default {
+
+  data() {
+
+    return {
+
+      pokemon: null
+    }
+  },
+
+
+  provide() {
+
+    return {
+
+      fetchedPokemon: computed(() => this.pokemon)
+    }
+  },
+
+  methods: {
+
+    async fetchPokemon() {
+
+      try {
+        const response = await this.$fetchPokemons()
+
+        console.log(response)
+
+        this.pokemon = response
+
+      } catch (error) {
+
+        console.log(error)
+
+      }
+
+    }
+  }
+
 
 }
 </script>
 
 <template>
   <header>
+
+
+    <button @click='fetchPokemon'>FetchData</button>
 
   </header>
 
